@@ -28,7 +28,7 @@ contract ZombieFactory {
   /**
    * @dev Generate a random DNA from a name.
    * @param _str The name of the zombie.
-   * @return The DNA of the zombie.
+   * @return uint256 The DNA of the zombie.
    */
   function _generateRandomDna(string memory _str)
     private
@@ -47,5 +47,13 @@ contract ZombieFactory {
   function createRandomZombie(string memory _name) public {
     uint256 randDna = _generateRandomDna(_name);
     _createZombie(_name, randDna);
+  }
+
+  /**
+   * @dev A public function to get all the zombies
+   * @return Zombie[] All the zombies of the smart contract
+   */
+  function getZombies() public view returns (Zombie[] memory) {
+    return zombies;
   }
 }

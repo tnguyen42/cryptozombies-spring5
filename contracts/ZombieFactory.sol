@@ -14,6 +14,9 @@ contract ZombieFactory {
 
   Zombie[] public zombies;
 
+  mapping(uint256 => address) public zombieToOwner;
+  mapping(address => uint256) public ownerZombieCount;
+
   /**
    * @dev Creates a new zombie with the given name and DNA.
    * @param _name The name of the zombie.
@@ -21,6 +24,8 @@ contract ZombieFactory {
    */
   function _createZombie(string memory _name, uint256 _dna) private {
     zombies.push(Zombie(_name, _dna));
+    zombieToOwner[zombies.length - 1] = msg.sender;
+    ownerZombieCount[msg.sender]++;
 
     emit NewZombie(zombies.length - 1, _name, _dna);
   }
@@ -45,6 +50,7 @@ contract ZombieFactory {
    * @param _name The name of the zombie.
    */
   function createRandomZombie(string memory _name) public {
+    require(ownerZombieCount[msg.sender] == 0, "You already have a zombie");
     uint256 randDna = _generateRandomDna(_name);
     _createZombie(_name, randDna);
   }

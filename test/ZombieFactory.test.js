@@ -17,6 +17,13 @@ describe("ZombieFactory smart contract", () => {
     await zombieFactory.createRandomZombie("Johnny Depp");
 
     const zombieCount = (await zombieFactory.getZombies()).length;
-    expect(zombieCount).to.equal(1);
+    zombieCount.should.equal(1);
+  });
+
+  it("should throw an error if you create a second zombie using createRandomZombie", async () => {
+    await zombieFactory.createRandomZombie("Johnny Depp");
+    await zombieFactory
+      .createRandomZombie("Johnny Depp")
+      .should.be.revertedWith("You already have a zombie");
   });
 });

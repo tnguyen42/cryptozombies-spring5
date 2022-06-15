@@ -22,7 +22,7 @@ contract ZombieFactory {
    * @param _name The name of the zombie.
    * @param _dna The DNA of the zombie.
    */
-  function _createZombie(string memory _name, uint256 _dna) private {
+  function _createZombie(string memory _name, uint256 _dna) internal {
     zombies.push(Zombie(_name, _dna));
     zombieToOwner[zombies.length - 1] = msg.sender;
     ownerZombieCount[msg.sender]++;

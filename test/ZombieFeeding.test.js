@@ -35,6 +35,6 @@ describe("ZombieFeeding smart contract", () => {
     await zombieFeeding.connect(user1).feedAndMultiply(0, 11111111111, "kitty");
 
     const newZombie = (await zombieFeeding.getZombies())[1];
-    (+newZombie.dna % 100).should.equal(ethers.BigNumber.from(99));
+    (newZombie.dna % 100).should.equal(99);
   });
 });
